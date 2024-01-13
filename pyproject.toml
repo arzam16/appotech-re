@@ -1,0 +1,7 @@
+[tool.ruff]
+extend-select = [ "D10", "D401", "E501", "FIX002" ]
+line-length = 80
+
+[tool.ruff.format]
+quote-style = "double"
+
