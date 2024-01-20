@@ -74,13 +74,13 @@ Since the speaker is pretending to be an empty drive, it does not need a separat
 
 During operation MPTool sends SCSI commands to the speaker and receives responses from it. The problem is that after the handshake is complete, the communication is encrypted. Actually, I can't really call this "encryption", more like "scrambling", for the following reasons:
 1. MPTool does not use AES and similar algorithms when communicating with the speaker. On the contrary, quite a few XOR operations are used in creating the outgoing command.
-2. The entropy of the intercepted USB traffic remains low after the handshake, indicating that no encryption is used. Eveb some patterns could be seen in Wireshark:
-
-It is interesting to note that during the handshake, the speaker responds with some kind of 4-byte value, which is presumably then used in scrambling the traffic. In addition, only the commands coming from the computer are scrambled, while the column's responses are received in plain text. Moreover, *some* scrambled commands have common values, as shown on the picture below.
+2. The entropy of the intercepted USB traffic remains low after the handshake, indicating that no encryption is used. Even some patterns in the scrambled commands could be seen in Wireshark:
 
 ![Similar commands in MPTool USB traffic](images/004.png)
 
-The problem is exacerbated by the fact that when repeating the same operation (I tested MPTool in SPI memory identification mode, i.e. when the `FlashLib.ini` file does not contain any chips) the outgoing traffic is not repeated. During handshake, the column responds with different 4-byte values. It is possible that this has some connection. The picture below shows the handshake and the start of communication opened in Wireshark. The highlighted value returned by the speaker is always different. 
+It is interesting to note that during the handshake, the speaker responds with some kind of 4-byte value, which is presumably then used in scrambling the traffic. In addition, only the commands coming from the computer are scrambled, while the speaker's responses are received in plain text.
+
+The problem is exacerbated by the fact that when repeating the same operation (I tested MPTool in SPI memory identification mode, i.e. when the `FlashLib.ini` file does not contain any chips) the outgoing traffic is not repeated. During handshake, the speaker responds with different 4-byte values. It is possible that this has some connection. The picture below shows the handshake and the start of communication opened in Wireshark. The highlighted value returned by the speaker is always different. 
 
 ![Wireshark dump of the MPTool USB traffic](images/005.png)
 
