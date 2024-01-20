@@ -1,6 +1,13 @@
 [tool.ruff]
-extend-select = [ "D10", "D401", "E501", "FIX002" ]
+extend-select = [ "D10", "D401", "E501", "FIX002", "I" ]
+ignore = [ "D107" ]
+fixable = [ "I001", "F401" ]
 line-length = 80
+
+[tool.ruff.extend-per-file-ignores]
+"src/obj/btinfo.py" = [ "D100" ]
+"src/obj/btpairing.py" = [ "D100" ]
+"src/obj/sfx.py" = [ "D100" ]
 
 [tool.ruff.format]
 quote-style = "double"
